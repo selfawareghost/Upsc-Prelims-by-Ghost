@@ -126,7 +126,6 @@ body.in-exam .site-header, body.in-exam .site-footer { display: none; }
 .year-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip-link { display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); text-decoration: none; font-size: .95rem; font-variant-numeric: tabular-nums; transition: background .2s, color .2s, border-color .2s; }
 .chip-link:hover { background: var(--ink); border-color: var(--ink); color: #fff; }
-.chip-soft:hover { background: var(--accent-soft); border-color: var(--accent-soft); color: var(--accent-ink); }
 
 /* --------------------------------------------------------------- syllabus */
 .syllabus-sheet { margin: 32px 0 48px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-l); overflow: hidden; }
@@ -151,7 +150,6 @@ body.in-exam .site-header, body.in-exam .site-footer { display: none; }
 .sn-sec { display: block; padding: 7px 12px; border-radius: var(--r-s); text-decoration: none; color: var(--ink-2); font-size: .94rem; }
 .sn-sec:hover { background: var(--line-soft); color: var(--ink); }
 .sn-sec[aria-current] { background: var(--surface); color: var(--ink); box-shadow: 0 0 0 1px var(--line); font-weight: 500; }
-.sn-ca { color: var(--accent-ink); }
 .sn-topics { margin: 4px 0 10px 14px; border-left: 1px solid var(--line); }
 .sn-topics a { display: block; padding: 4px 12px; font-size: .86rem; color: var(--muted); text-decoration: none; }
 .sn-topics a.is-ready { color: var(--ink-2); }
@@ -198,9 +196,6 @@ body.in-exam .site-header, body.in-exam .site-footer { display: none; }
 .tabs a[aria-current] { background: var(--ink); color: #fff; }
 .tabs .ico { width: 16px; height: 16px; }
 .tab-title { font-size: 1.8rem; }
-.ca-month { margin-top: 32px; }
-.ca-month > h2 { font: 600 .82rem var(--ui); letter-spacing: .02em; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 8px; }
-.ca-entry { padding: 14px 0; }
 
 /* ------------------------------------------------------------------ papers */
 .paper-list { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 10px; }
@@ -586,13 +581,6 @@ body.in-reader { background: #efeee9; }
 }
 @media print { .reader-bar { display: none; } }
 
-/* ------------------------------------------------------- current affairs */
-.h-month { display: block; font-size: .5em; color: var(--accent); margin-top: 6px; letter-spacing: 0; }
-.ca-tabs { flex-wrap: nowrap; margin: 20px 0 8px; padding-bottom: 4px; }
-.ca-page .note-toc ol { columns: 2; }
-.ca-notes .nsec + .nsec { margin-top: 28px; padding-top: 24px; }
-.ca-notes h2 { font-size: 1.55rem; }
-.month-list .tl-n { font-variant-numeric: tabular-nums; }
 
 html:has(body.in-reader) { scroll-padding-top: 0; }
 
@@ -615,7 +603,6 @@ html:has(body.in-reader) { scroll-padding-top: 0; }
     <nav class="site-nav" aria-label="Main">
       <a href="#/syllabus" data-nav="syllabus">Syllabus</a>
       <a href="#/subjects" data-nav="subjects">Subjects</a>
-      <a href="#/current-affairs" data-nav="current-affairs">Current affairs</a>
       <a href="#/papers" data-nav="papers">Previous papers</a>
     </nav>
   </div>
@@ -626,7 +613,7 @@ html:has(body.in-reader) { scroll-padding-top: 0; }
 </footer>
 <script>
 /* Core: data registries, small helpers, icons, modal, toast.
-   Data files (papers, notes, current affairs) call PYQ.register / NOTES.register / CA.register. */
+   Data files (papers and notes) call PYQ.register / NOTES.register. */
 (function () {
   'use strict';
 
@@ -635,7 +622,6 @@ html:has(body.in-reader) { scroll-padding-top: 0; }
   }
   window.PYQ = window.PYQ || registry();
   window.NOTES = window.NOTES || registry();
-  window.CA = window.CA || registry();
 
   var esc = function (s) {
     return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -666,12 +652,6 @@ html:has(body.in-reader) { scroll-padding-top: 0; }
   };
   function icon(name) {
     return '<svg class="ico" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' + (paths[name] || '') + '</svg>';
-  }
-
-  var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  function monthLabel(ym) {
-    var p = String(ym).split('-');
-    return (MONTHS[(+p[1] || 1) - 1] || '') + ' ' + p[0];
   }
 
   /* Accessible modal. Returns a close function. */
@@ -729,14 +709,14 @@ html:has(body.in-reader) { scroll-padding-top: 0; }
     setTimeout(function () { t.remove(); }, 3700);
   }
 
-  window.UI = { esc: esc, icon: icon, modal: modal, toast: toast, monthLabel: monthLabel };
+  window.UI = { esc: esc, icon: icon, modal: modal, toast: toast };
 })();
 
 </script>
 <script>
 /* ==========================================================================
    SITE CONFIG — the single place that defines the structure of the site.
-   When a note, paper or current-affairs file is added, flip its `ready` flag
+   When a note or paper file is added, flip its `ready` flag
    (or `q` / `key` for papers) to true here.
    ========================================================================== */
 window.SITE = {
@@ -786,23 +766,6 @@ window.SITE = {
       blurb: 'Physics, chemistry and biology at the level of everyday life and the human body.',
       sections: []
     }
-  ],
-
-  /* ------------------------------------------------------ Current affairs
-     File: data/current-affairs/<id>.js . `subject` links a category to its
-     subject page so it also shows there.                                   */
-  caCategories: [
-    { id: 'polity', name: 'Polity and Governance', months: [] },
-    { id: 'international', name: 'International Relations', months: [] },
-    { id: 'environment', name: 'Environment', months: [] },
-    { id: 'economy', name: 'Indian Economy', months: [] },
-    { id: 'science', name: 'Science and Technology', months: [] },
-    { id: 'geography', name: 'Geography', months: [] },
-    { id: 'art-culture', name: 'Art and Culture', months: [] },
-    { id: 'social-sector', name: 'Social Sector: Health, Education, etc.', months: [] },
-    { id: 'social-issues', name: 'Social Issues', months: [] },
-    { id: 'schemes', name: 'Schemes and Initiatives', months: [] },
-    { id: 'agriculture', name: 'Agriculture', months: [] }
   ],
 
   /* ------------------------------------------------------- Previous papers
@@ -1364,11 +1327,10 @@ window.Exam = (function () {
   var app = document.getElementById('app');
 
   /* ---------------------------------------------------------- data loading */
-  var REG = { paper: PYQ.data, note: NOTES.data, ca: CA.data };
+  var REG = { paper: PYQ.data, note: NOTES.data };
   var PATH = {
     paper: function (id) { return 'data/papers/' + id + '.js'; },
-    note: function (id) { return 'data/notes/' + id + '.js'; },
-    ca: function (id) { return 'data/current-affairs/' + id + '.js'; }
+    note: function (id) { return 'data/notes/' + id + '.js'; }
   };
   function load(kind, id) {
     if (REG[kind][id]) return Promise.resolve(REG[kind][id]);
@@ -1392,7 +1354,6 @@ window.Exam = (function () {
   function topic(sec, id) { return sec && sec.topics.filter(function (x) { return x.id === id; })[0]; }
   function paperMeta(id) { return S.papers.filter(function (p) { return p.id === id; })[0]; }
   function allTopics(s) { return s.sections.reduce(function (a, sec) { return a.concat(sec.topics); }, []); }
-  function caFor(subjectId) { return S.caCategories.filter(function (c) { return c.subject === subjectId; })[0]; }
 
   /* ---------------------------------------------------------------- router */
   var currentHash = location.hash, skipNext = false;
@@ -1449,7 +1410,6 @@ window.Exam = (function () {
         case 'subjects': render(pageSubjects(), 'Subjects'); break;
         case 'subject': pageSubject(p[1], p[2], p[3], p[4]); break;
         case 'read': pageRead(p[1], p[2], p[3]); break;
-        case 'current-affairs': pageCurrentAffairs(p[1], p[2], p[3]); break;
         case 'papers': pagePapers(p[1], p[2], p[3]); break;
         default: render(pageNotFound(), 'Not found');
       }
@@ -1488,12 +1448,6 @@ window.Exam = (function () {
         }).join('') + '</div>' +
       '</section>' +
 
-      '<section class="band wrap" aria-labelledby="hCa">' +
-        '<div class="band-head"><h2 id="hCa">Current affairs</h2><a class="link-arrow" href="#/current-affairs">Open ' + I('chevronR') + '</a></div>' +
-        '<div class="year-chips">' + S.caCategories.map(function (c) {
-          return '<a class="chip-link chip-soft" href="#/current-affairs/' + c.id + '">' + esc(c.name) + '</a>';
-        }).join('') + '</div>' +
-      '</section>' +
     '</div>';
   }
 
@@ -1512,13 +1466,13 @@ window.Exam = (function () {
   /* -------------------------------------------------------------- syllabus */
   function pageSyllabus() {
     var map = [
-      ['Current events of national and international importance', [['Current affairs', '#/current-affairs'], ['International Relations (current affairs)', '#/current-affairs/international']]],
+      ['Current events of national and international importance', []],
       ['History of India and Indian National Movement', [['History', '#/subject/history']]],
       ['Indian and World Geography: Physical, Social, Economic geography of India and the World', [['Geography', '#/subject/geography']]],
       ['Indian Polity and Governance: Constitution, Political System, Panchayati Raj, Public Policy, Rights Issues', [['Polity and Constitution', '#/subject/polity']]],
       ['Economic and Social Development: Sustainable Development, Poverty, Inclusion, Demographics, Social Sector Initiatives, etc.', [['Economy and Social Development', '#/subject/economy']]],
       ['General issues on Environmental Ecology, Biodiversity, and Climate Change that do not require subject specialisation', [['Environment and Ecology', '#/subject/environment']]],
-      ['General Science', [['General Science', '#/subject/general-science'], ['Science and Technology (current affairs)', '#/current-affairs/science']]]
+      ['General Science', [['General Science', '#/subject/general-science']]]
     ];
     return '<div class="wrap page narrow">' +
       '<h1>Syllabus</h1>' +
@@ -1526,7 +1480,7 @@ window.Exam = (function () {
       '<section class="syllabus-sheet" aria-labelledby="sylT">' +
         '<div class="ss-head"><h2 id="sylT">General Studies Paper I</h2><p>200 marks, two hours</p></div>' +
         '<ol class="syllabus-list">' + map.map(function (m) {
-          return '<li><p>' + esc(m[0]) + '</p><p class="syl-links">' + m[1].map(function (l) { return '<a href="' + l[1] + '">' + esc(l[0]) + '</a>'; }).join('') + '</p></li>';
+          return '<li><p>' + esc(m[0]) + '</p>' + (m[1].length ? '<p class="syl-links">' + m[1].map(function (l) { return '<a href="' + l[1] + '">' + esc(l[0]) + '</a>'; }).join('') + '</p>' : '') + '</li>';
         }).join('') + '</ol>' +
       '</section>' +
       '<h2>Marking scheme</h2>' +
@@ -1590,7 +1544,7 @@ window.Exam = (function () {
     if (!secId && !s.sections.length) {
       return render(subjectShell(s, null, null,
         '<h1>' + esc(s.name) + '</h1><p class="lede">' + esc(s.blurb) + '</p>' +
-        '<div class="empty-state"><p class="es-title">Notes coming soon</p><p>Sections and topics for ' + esc(s.name) + ' will appear here as the notes are added. Meanwhile, see <a href="#/current-affairs">current affairs</a> or <a href="#/papers">previous year papers</a>.</p></div>'), s.name);
+        '<div class="empty-state"><p class="es-title">Notes coming soon</p><p>Sections and topics for ' + esc(s.name) + ' will appear here as the notes are added. Meanwhile, see the <a href="#/papers">previous year papers</a>.</p></div>'), s.name);
     }
     if (!secId) {
       return render(subjectShell(s, null, null,
@@ -1599,8 +1553,6 @@ window.Exam = (function () {
           return '<section class="sec-block"><h2><a href="#/subject/' + s.id + '/' + sec.id + '">' + esc(sec.name) + '</a></h2>' + topicList(s, sec) + '</section>';
         }).join('')), s.name);
     }
-
-    if (secId === 'current-affairs') { location.replace('#/current-affairs'); return; }
 
     var sec = section(s, secId);
     if (!sec) return render(pageNotFound(), 'Not found');
@@ -1654,17 +1606,10 @@ window.Exam = (function () {
   /* ------------------------------------------------------------ reading mode */
   var Reader = null;
   function pageRead(sid, secId, topicId) {
-    var s, sec, t, back, noteKind = 'note', noteId;
-    if (sid === 'ca') {
-      var cc = caCat(secId);
-      if (!cc || !cc.months.some(function (m) { return m.id === topicId; })) return render(pageNotFound(), 'Not found');
-      s = { id: 'ca', name: 'Current affairs' }; sec = { id: cc.id, name: cc.name }; t = { id: topicId, title: cc.name + ', ' + monthName(topicId) };
-      back = '#/current-affairs/' + cc.id + '/' + topicId; noteKind = 'ca'; noteId = cc.id + '/' + topicId;
-    } else {
-      s = subject(sid); sec = section(s, secId); t = topic(sec, topicId);
-      if (!t) return render(pageNotFound(), 'Not found');
-      back = '#/subject/' + s.id + '/' + sec.id + '/' + t.id; noteId = s.id + '/' + sec.id + '/' + t.id;
-    }
+    var s = subject(sid), sec = section(s, secId), t = topic(sec, topicId);
+    if (!t) return render(pageNotFound(), 'Not found');
+    var back = '#/subject/' + s.id + '/' + sec.id + '/' + t.id;
+    var noteKind = 'note', noteId = s.id + '/' + sec.id + '/' + t.id;
     document.body.classList.add('in-reader');
     app.innerHTML = loadingHTML('Opening reading mode…');
     load(noteKind, noteId).then(function (n) {
@@ -1692,7 +1637,7 @@ window.Exam = (function () {
             '<span class="rb-note">Markings disappear when you exit</span>' +
           '</div>' +
           '<div class="reader-page"><div class="reader-sheet">' +
-            '<p class="reader-kicker">' + esc(s.name) + ', ' + esc(sec.name) + '</p><h1>' + esc(noteKind === 'ca' ? t.title : (n.title || t.title)) + '</h1>' +
+            '<p class="reader-kicker">' + esc(s.name) + ', ' + esc(sec.name) + '</p><h1>' + esc(n.title || t.title) + '</h1>' +
             '<article class="prose notes">' + n.html + '</article>' +
             '<canvas class="reader-ink" aria-hidden="true"></canvas>' +
           '</div></div>' +
@@ -1786,61 +1731,6 @@ window.Exam = (function () {
       document.title = (n.title || t.title) + ' | Reading mode';
       window.scrollTo(0, 0);
     }).catch(function (err) { app.innerHTML = errorHTML(err); });
-  }
-
-  /* ------------------------------------------------------- current affairs */
-  function caCat(id) { return S.caCategories.filter(function (c) { return c.id === id; })[0]; }
-  function monthName(m) { var p = m.split('-'); return ['January','February','March','April','May','June','July','August','September','October','November','December'][+p[1] - 1] + ' ' + p[0]; }
-
-  function pageCurrentAffairs(catId, monthId, part) {
-    var crumbsBase = '<a href="#/current-affairs">Current affairs</a>';
-    if (!catId) {
-      var latest = {};
-      S.caCategories.forEach(function (c) { c.months.forEach(function (m) { latest[m.id] = true; }); });
-      var months = Object.keys(latest).sort().reverse();
-      return render('<div class="wrap page">' +
-        '<h1>Current affairs</h1>' +
-        '<p class="lede">Month-wise current affairs for Prelims, arranged by subject.' + (months.length ? ' Latest: ' + monthName(months[0]) + '.' : ' Notes will be added month by month.') + '</p>' +
-        '<ul class="subject-grid ca-grid">' + S.caCategories.map(function (c, i) {
-          var n = c.months.reduce(function (a, m) { return a + m.topics; }, 0);
-          return '<li><a class="subject-card" href="#/current-affairs/' + c.id + '">' +
-            '<span class="sc-num">' + (i < 9 ? '0' : '') + (i + 1) + '</span><h3>' + esc(c.name) + '</h3>' +
-            '<span class="sc-meta">' + (c.months.length ? c.months.length + (c.months.length === 1 ? ' month' : ' months') + ', ' + n + ' topics' : 'Coming soon') + '</span></a></li>';
-        }).join('') + '</ul></div>', 'Current affairs');
-    }
-    var cat = caCat(catId);
-    if (!cat) return render(pageNotFound(), 'Not found');
-    var nav = '<nav class="tabs ca-tabs" aria-label="Current affairs subjects">' + S.caCategories.map(function (c) {
-      return '<a href="#/current-affairs/' + c.id + (monthId && c.months.some(function (m) { return m.id === monthId; }) ? '/' + monthId : '') + '"' + (c.id === cat.id ? ' aria-current="page"' : '') + '>' + esc(c.name) + '</a>';
-    }).join('') + '</nav>';
-    if (!monthId) {
-      var ms = cat.months.slice().sort(function (x, y) { return x.id < y.id ? 1 : -1; });
-      return render('<div class="wrap page">' +
-        '<nav class="crumbs" aria-label="Breadcrumb">' + crumbsBase + '<span aria-hidden="true">/</span><span>' + esc(cat.name) + '</span></nav>' +
-        '<h1>' + esc(cat.name) + '</h1>' + nav +
-        (ms.length ? '' : '<div class="empty-state"><p class="es-title">Nothing here yet</p><p>Current affairs for ' + esc(cat.name) + ' will appear month by month, newest first.</p></div>') +
-        '<ol class="topic-list month-list">' + ms.map(function (m) {
-          return '<li class="is-ready"><a href="#/current-affairs/' + cat.id + '/' + m.id + '"><span class="tl-n">' + m.id.split('-')[1] + '</span><span class="tl-title">' + monthName(m.id) + '</span><span class="tl-status">' + m.topics + ' topics</span></a>' +
-            '<a class="tl-read" href="#/read/ca/' + cat.id + '/' + m.id + '" title="Open in reading mode" aria-label="Open ' + monthName(m.id) + ' in reading mode">' + I('read') + '</a></li>';
-        }).join('') + '</ol></div>', cat.name + ' current affairs');
-    }
-    var mm = cat.months.filter(function (m) { return m.id === monthId; })[0];
-    if (!mm) return render(pageNotFound(), 'Not found');
-    render('<div class="wrap page ca-page">' +
-      '<nav class="crumbs" aria-label="Breadcrumb">' + crumbsBase + '<span aria-hidden="true">/</span><a href="#/current-affairs/' + cat.id + '">' + esc(cat.name) + '</a><span aria-hidden="true">/</span><span>' + monthName(monthId) + '</span></nav>' +
-      '<div data-ca><p class="loading">Loading…</p></div></div>', cat.name + ', ' + monthName(monthId));
-    load('ca', cat.id + '/' + monthId).then(function (d) {
-      var el = app.querySelector('[data-ca]'); if (!el) return;
-      var toc = (d.toc || []).map(function (h, j) { return '<li><button type="button" data-jump="' + (j + 1) + '">' + esc(h) + '</button></li>'; }).join('');
-      el.innerHTML = '<div class="note-head"><h1>' + esc(cat.name) + ' <span class="h-month">' + monthName(monthId) + '</span></h1>' +
-        '<a class="btn btn-small read-btn" href="#/read/ca/' + cat.id + '/' + monthId + '" title="Open in reading mode">' + I('read') + '<span>Reading mode</span></a></div>' +
-        '<p class="meta">' + d.toc.length + ' topics</p>' + nav +
-        '<details class="note-toc" open><summary>Contents</summary><ol>' + toc + '</ol></details>' +
-        '<article class="prose notes ca-notes">' + d.html + '</article>';
-      el.querySelectorAll('[data-jump]').forEach(function (b) {
-        b.addEventListener('click', function () { var x = el.querySelector('#nsec-' + b.dataset.jump); if (x) x.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
-      });
-    }).catch(function (err) { var el = app.querySelector('[data-ca]'); if (el) el.innerHTML = '<p class="empty">' + esc(err.message) + '</p>'; });
   }
 
   /* ---------------------------------------------------------------- papers */

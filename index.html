@@ -3734,7 +3734,7 @@ window.Exam = (function () {
   /* -------------------------------------------------------------- syllabus */
   function pageSyllabus() {
     var map = [
-      ['Current events of national and international importance', []],
+      ['Current events of national and international importance', [['Current affairs notes (my website)', 'https://selfawareghost.github.io/UPSC-Current-Affairs-by-Mukul-Jakhar/']]],
       ['History of India and Indian National Movement', [['History', '#/subject/history'], ['Art and Culture', '#/subject/art-culture']]],
       ['Indian and World Geography: Physical, Social, Economic geography of India and the World', [['Geography', '#/subject/geography']]],
       ['Indian Polity and Governance: Constitution, Political System, Panchayati Raj, Public Policy, Rights Issues', [['Polity and Constitution', '#/subject/polity']]],
@@ -3748,7 +3748,7 @@ window.Exam = (function () {
       '<section class="syllabus-sheet" aria-labelledby="sylT">' +
         '<div class="ss-head"><h2 id="sylT">General Studies Paper I</h2><p>200 marks, two hours</p></div>' +
         '<ol class="syllabus-list">' + map.map(function (m) {
-          return '<li><p>' + esc(m[0]) + '</p>' + (m[1].length ? '<p class="syl-links">' + m[1].map(function (l) { return '<a href="' + l[1] + '">' + esc(l[0]) + '</a>'; }).join('') + '</p>' : '') + '</li>';
+          return '<li><p>' + esc(m[0]) + '</p>' + (m[1].length ? '<p class="syl-links">' + m[1].map(function (l) { var ext = /^https?:/.test(l[1]); return '<a href="' + esc(l[1]) + '"' + (ext ? ' target="_blank" rel="noopener"' : '') + '>' + esc(l[0]) + (ext ? ' ↗' : '') + '</a>'; }).join('') + '</p>' : '') + '</li>';
         }).join('') + '</ol>' +
       '</section>' +
       '<h2>Marking scheme</h2>' +

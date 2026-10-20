@@ -6,7 +6,7 @@
 <title>Mukul Jakhar, UPSC Prelims Notebook</title>
 <meta name="description" content="Mukul Jakhar's notes for UPSC Civil Services Prelims GS Paper I, with previous year papers from 2011 to 2026 to read, check and attempt.">
 <meta name="theme-color" content="#15172b">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2315172b'/%3E%3Cpath d='M8 23V9h3.4l4.6 8.2L20.6 9H24v14h-3.1v-8.4L16.9 22h-1.8l-4-8.4V23z' fill='%238fd8c6'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2315172b'/%3E%3Cpath d='M8 23V9h3.4l4.6 8.2L20.6 9H24v14h-3.1v-8.4L16.9 22h-1.8l-4-8.4V23z' fill='%23ffb067'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,400..900,0..100;1,9..144,400..700,0..100&family=Instrument+Sans:ital,wght@0,400..700;1,400..600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..600&display=swap" rel="stylesheet">
@@ -19,7 +19,8 @@
    Type: Fraunces (display), Instrument Sans (interface), Literata (reading)
    ========================================================================== */
 :root {
-  --calm: #8fd8c6; --calm-2: #6cc3c9; --calm-ink: #0e2a26;
+  --calm: #ffb067; --calm-2: #ff6f91; --calm-ink: #2a0f1f;
+  --warm-1: #ffc46b; --warm-2: #ff6f91; --sun-1: #ffb35c; --sun-2: #ff5f8a;
   /* desk */
   --bg: #15172b;
   --bg-2: #191c33;
@@ -69,7 +70,8 @@
 }
 
 :root[data-theme="day"] {
-  --calm: #2f8f7f; --calm-2: #3a8fa3; --calm-ink: #ffffff;
+  --calm: #e8742a; --calm-2: #d6457a; --calm-ink: #ffffff;
+  --warm-1: #f08a2c; --warm-2: #d6457a; --sun-1: #ffd08a; --sun-2: #ff8fa8;
   --bg: #e9ecf2;
   --bg-2: #eef0f5;
   --surface: #ffffff;
@@ -194,13 +196,22 @@ body.in-exam .site-header, body.in-exam .site-footer { display: none; }
 
 /* -------------------------------------------------------------------- home */
 .hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
-.hero { background: radial-gradient(120% 90% at 78% 40%, #232a63 0%, transparent 60%), radial-gradient(90% 80% at 10% 100%, #10304a 0%, transparent 65%), var(--bg); }
-.hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .55;
-  background-image: radial-gradient(1px 1px at 12% 22%, #fff, transparent), radial-gradient(1px 1px at 28% 68%, #cfd4ff, transparent), radial-gradient(1.4px 1.4px at 44% 14%, #fff, transparent), radial-gradient(1px 1px at 63% 82%, #fff, transparent), radial-gradient(1.2px 1.2px at 86% 12%, #ffe7b0, transparent), radial-gradient(1px 1px at 92% 64%, #fff, transparent), radial-gradient(1px 1px at 52% 46%, #cfd4ff, transparent), radial-gradient(1px 1px at 7% 84%, #fff, transparent);
-  background-size: 420px 300px; animation: hero-stars 120s linear infinite; }
-@keyframes hero-stars { to { background-position: 420px 300px; } }
-:root[data-theme="day"] .hero { background: radial-gradient(120% 90% at 78% 40%, #dfe6fb 0%, transparent 60%), radial-gradient(90% 80% at 10% 100%, #e3f1f4 0%, transparent 65%), var(--bg); }
+.hero { background:
+    radial-gradient(60% 70% at 76% 52%, rgba(255, 140, 90, .32), transparent 62%),
+    radial-gradient(80% 60% at 20% 110%, rgba(255, 95, 138, .22), transparent 60%),
+    linear-gradient(180deg, #120d2b 0%, #24123f 45%, #3a1742 78%, #4a1d3f 100%); }
+.hero::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5;
+  background-image: radial-gradient(1px 1px at 12% 18%, #fff, transparent), radial-gradient(1px 1px at 33% 9%, #ffe3c4, transparent), radial-gradient(1.3px 1.3px at 47% 26%, #fff, transparent), radial-gradient(1px 1px at 64% 7%, #fff, transparent), radial-gradient(1px 1px at 88% 20%, #ffd2e0, transparent), radial-gradient(1px 1px at 6% 40%, #fff, transparent);
+  background-size: 460px 260px; mask-image: linear-gradient(#000, transparent 65%); animation: hero-stars 160s linear infinite; }
+@keyframes hero-stars { to { background-position: 460px 0; } }
+.hero .display { color: #fff4ea; }
+.hero .cdown, .hero [data-cdown] { background: rgba(255, 255, 255, .06); border-color: rgba(255, 190, 150, .25); }
+:root[data-theme="day"] .hero { background:
+    radial-gradient(55% 70% at 76% 52%, rgba(255, 170, 110, .45), transparent 62%),
+    linear-gradient(180deg, #fff7ef 0%, #ffe9e0 55%, #ffd9d6 100%); }
 :root[data-theme="day"] .hero::before { opacity: 0; }
+:root[data-theme="day"] .hero .display { color: #2a1530; }
+:root[data-theme="day"] .hero [data-cdown] { background: rgba(255, 255, 255, .65); }
 .hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 60%, transparent), transparent); pointer-events: none; }
 .emblem { --em-sea1: #2a3a8f; --em-sea2: #0c1238; --em-land: #5b6cc4; --em-india: #f5b426; --em-grat: rgba(200, 210, 255, .14); --em-night: rgba(4, 6, 22, .42);
   margin: 0; justify-self: center; display: flex; flex-direction: column; align-items: center; gap: 16px; }
@@ -225,7 +236,7 @@ body.in-exam .site-header, body.in-exam .site-footer { display: none; }
 @media (prefers-reduced-motion: reduce) { .em-spin, .em-ticks, .hero::before, .em-live i { animation: none; } }
 .hero-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 56px; align-items: center; padding-top: clamp(44px, 7vw, 86px); padding-bottom: clamp(44px, 7vw, 80px); }
 .display { font: 560 clamp(3rem, 1.8rem + 6vw, 5.6rem)/.98 var(--display); font-variation-settings: "SOFT" 40, "opsz" 144; letter-spacing: -.03em; margin: 0 0 26px; }
-.display em { font-style: italic; color: var(--calm); font-variation-settings: "SOFT" 60, "opsz" 144; }
+.display em { font-style: italic; color: var(--calm); background: linear-gradient(100deg, var(--warm-1), var(--warm-2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; padding-right: .08em; font-variation-settings: "SOFT" 60, "opsz" 144; }
 .hero-board { padding: 22px 24px 20px; background: color-mix(in srgb, var(--surface) 70%, transparent); border: 1px solid var(--line); border-radius: var(--r-l); backdrop-filter: blur(6px); }
 .hb-head { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 18px; }
 .hb-head h2 { margin: 0; font-size: 1.3rem; }
@@ -1303,6 +1314,49 @@ html:has(body.in-reader) { scroll-padding-top: 0; }
 .om-focus { color: var(--calm); text-decoration: none; }
 .om-focus b { font-weight: 600; }
 .omr .em-cap b { color: var(--ink); font-variant-numeric: tabular-nums; }
+
+/* chakra emblem */
+.ck-svg { width: 100%; height: 100%; overflow: visible; }
+.ck-glow { animation: ck-breathe 6s ease-in-out infinite; transform-origin: 200px 200px; }
+@keyframes ck-breathe { 50% { opacity: .75; transform: scale(.96); } }
+.ck-wheel { transform-origin: 200px 200px; animation: ck-turn 90s linear infinite; }
+@keyframes ck-turn { to { transform: rotate(360deg); } }
+.ck-rim { fill: none; stroke: url(#ckRim); stroke-width: 7; }
+.ck-rim2 { fill: none; stroke: url(#ckRim); stroke-width: 1.4; opacity: .7; }
+.ck-lb { fill: none; stroke: url(#ckRim); stroke-width: 1.6; opacity: .8; }
+.ck-sp { fill: rgba(255, 230, 210, .18); stroke: none; transition: fill .6s; }
+.ck-sp.is-past { fill: url(#ckRim); opacity: .78; }
+.ck-sp.is-now { fill: #fff; filter: drop-shadow(0 0 6px var(--warm-1)); animation: ck-now 2s ease-in-out infinite; }
+@keyframes ck-now { 50% { opacity: .55; } }
+.ck-hub { fill: #2a1238; stroke: url(#ckRim); stroke-width: 3; }
+.ck-mono { font: 700 22px var(--display); fill: #ffe9d6; text-anchor: middle; }
+.ck-tk { stroke: rgba(255, 220, 200, .25); stroke-width: 1.4; }
+.ck-tk.is-on { stroke: var(--warm-1); }
+.ck-sec { fill: #fff; filter: drop-shadow(0 0 5px var(--warm-2)); }
+:root[data-theme="day"] .ck-sp { fill: rgba(120, 40, 60, .12); }
+:root[data-theme="day"] .ck-sp.is-now { fill: #b8325f; filter: none; }
+:root[data-theme="day"] .ck-hub { fill: #fff6ee; }
+:root[data-theme="day"] .ck-mono { fill: #b8325f; }
+:root[data-theme="day"] .ck-tk { stroke: rgba(120, 40, 60, .2); }
+:root[data-theme="day"] .ck-sec { fill: #d6457a; }
+.chakra .em-cap { color: #e9c9c4; }
+.chakra .em-cap b { color: #fff4ea; font-variant-numeric: tabular-nums; }
+:root[data-theme="day"] .chakra .em-cap { color: #7a5560; }
+:root[data-theme="day"] .chakra .em-cap b { color: #2a1530; }
+@media (prefers-reduced-motion: reduce) { .ck-wheel, .ck-glow, .ck-sp.is-now { animation: none; } }
+.home .strip { background: linear-gradient(180deg, #4a1d3f 0%, color-mix(in srgb, #4a1d3f 35%, var(--bg)) 55%, var(--bg) 100%); border-top: 0; }
+.home .strip dd { background: linear-gradient(100deg, var(--warm-1), var(--warm-2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+:root[data-theme="day"] .home .strip { background: linear-gradient(180deg, #ffd9d6 0%, var(--bg) 100%); }
+
+/* globe emblem on the dusk hero */
+.hero .emblem .em-cap { color: #e9c9c4; }
+.hero .emblem .em-cap [data-em-time] { color: #fff4ea; }
+:root[data-theme="day"] .hero .emblem .em-cap { color: #7a5560; }
+:root[data-theme="day"] .hero .emblem .em-cap [data-em-time] { color: #2a1530; }
+.hero .em-mono { background: linear-gradient(135deg, var(--warm-1), var(--warm-2)); color: var(--calm-ink); box-shadow: 0 10px 24px -10px rgba(0,0,0,.6), 0 0 0 4px #3a1742; }
+:root[data-theme="day"] .hero .em-mono { box-shadow: 0 10px 24px -10px rgba(0,0,0,.3), 0 0 0 4px #ffe9e0; color: #fff; }
+.hero .em-spin text { fill: #ffc9a0; }
+:root[data-theme="day"] .hero .em-spin text { fill: #b8325f; }
 
 </style>
 </head>
@@ -3512,63 +3566,96 @@ window.Exam = (function () {
         '<span class="cd-unit cd-sec"><b data-cd="s">—</b><i>sec</i></span>' +
       '</p></div>';
   }
-  /* ---- live emblem: an OMR wheel of the 100 questions, marking itself, around the road to the next Prelims */
-  var PREV_EXAM = '2026-05-24T09:30:00+05:30';
+  /* ---- live emblem: the Earth as it is this minute, ringed by the notebook's name */
   function emblemHTML() {
-    var R = 168, bub = '';
-    for (var i = 0; i < 100; i++) {
-      var a = (i / 100) * Math.PI * 2 - Math.PI / 2, x = 200 + R * Math.cos(a), y = 200 + R * Math.sin(a);
-      bub += '<circle class="om-b" data-b="' + i + '" cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="5.6"/>';
-      if ((i + 1) % 10 === 0) { var tx = 200 + (R + 19) * Math.cos(a), ty = 200 + (R + 19) * Math.sin(a); bub += '<text class="om-n" x="' + tx.toFixed(1) + '" y="' + (ty + 3.5).toFixed(1) + '">' + (i + 1) + '</text>'; }
-    }
-    return '<figure class="emblem omr" data-emblem>' +
+    var ring = 'PRELIMS NOTEBOOK · MUKUL JAKHAR · GS PAPER I · UPSC CIVIL SERVICES · ';
+    return '<figure class="emblem" data-emblem>' +
       '<div class="em-disc">' +
-        '<svg class="om-svg" viewBox="0 0 400 400" role="img" aria-label="An answer sheet of 100 questions marking itself, around the progress towards the next Prelims">' +
-          '<circle class="om-ring" cx="200" cy="200" r="190"/>' +
-          '<g class="om-bubbles">' + bub + '</g>' +
-          '<circle class="om-track" cx="200" cy="200" r="138"/>' +
-          '<circle class="om-prog" data-prog cx="200" cy="200" r="138" transform="rotate(-90 200 200)"/>' +
-          '<circle class="om-pen" data-pen r="7"/>' +
-          '<text class="om-kick" x="200" y="150">Road to <tspan data-om-exam>Prelims</tspan></text>' +
-          '<text class="om-pct" x="200" y="205" data-om-pct>—</text>' +
-          '<text class="om-sub" x="200" y="232" data-om-day>—</text>' +
-          '<g class="om-mono" transform="translate(200 275)"><rect x="-21" y="-21" width="42" height="42" rx="12"/><text y="7">MJ</text></g>' +
+        '<svg class="em-ring" viewBox="0 0 400 400" aria-hidden="true"><defs><path id="emArc" d="M200,200 m-182,0 a182,182 0 1,1 364,0 a182,182 0 1,1 -364,0"/></defs>' +
+          '<circle cx="200" cy="200" r="196" class="em-r1"/><circle cx="200" cy="200" r="166" class="em-r2"/>' +
+          '<g class="em-spin"><text><textPath href="#emArc" textLength="1140">' + ring + '</textPath></text></g>' +
+          '<g class="em-ticks">' + Array.apply(null, Array(72)).map(function (_, i) { return '<line x1="200" y1="' + (i % 6 ? 38 : 33) + '" x2="200" y2="42" transform="rotate(' + i * 5 + ' 200 200)"/>'; }).join('') + '</g>' +
         '</svg>' +
+        '<canvas class="em-globe" data-globe aria-label="The Earth now, with the current day and night line" role="img"></canvas>' +
+        '<span class="em-mono" aria-hidden="true">MJ</span>' +
       '</div>' +
-      '<figcaption class="em-cap"><span class="em-live"><i></i>Live</span><span>Question <b data-om-q>1</b> of 100 being marked</span><a class="om-focus" data-om-focus href="#/subjects"></a></figcaption>' +
+      '<figcaption class="em-cap"><span class="em-live"><i></i>Live</span><span data-em-time>—</span><span class="em-sun" data-em-sun></span></figcaption>' +
     '</figure>';
+  }
+  function sunNow(d) {
+    var start = Date.UTC(d.getUTCFullYear(), 0, 0), n = (d - start) / 864e5;
+    var g = 2 * Math.PI / 365 * (n - 1 + (d.getUTCHours() - 12) / 24);
+    var eot = 229.18 * (0.000075 + 0.001868 * Math.cos(g) - 0.032077 * Math.sin(g) - 0.014615 * Math.cos(2 * g) - 0.040849 * Math.sin(2 * g));
+    var decl = 0.006918 - 0.399912 * Math.cos(g) + 0.070257 * Math.sin(g) - 0.006758 * Math.cos(2 * g) + 0.000907 * Math.sin(2 * g) - 0.002697 * Math.cos(3 * g) + 0.00148 * Math.sin(3 * g);
+    var mins = d.getUTCHours() * 60 + d.getUTCMinutes() + d.getUTCSeconds() / 60;
+    var lon = -(mins + eot - 720) / 4;
+    lon = ((lon + 540) % 360) - 180;
+    return [lon, decl * 180 / Math.PI];
   }
   function startEmblem(root) {
     var box = root.querySelector('[data-emblem]'); if (!box) return null;
-    var prog = box.querySelector('[data-prog]'), pen = box.querySelector('[data-pen]'), pct = box.querySelector('[data-om-pct]'),
-        day = box.querySelector('[data-om-day]'), qn = box.querySelector('[data-om-q]'), focus = box.querySelector('[data-om-focus]');
-    var bubbles = [].slice.call(box.querySelectorAll('[data-b]'));
-    var t0 = new Date(PREV_EXAM).getTime(), t1 = new Date((S.nextExam || {}).date || '2027-05-23T09:30:00+05:30').getTime();
-    box.querySelector('[data-om-exam]').textContent = (S.nextExam || {}).name || 'Prelims';
-    var C = 2 * Math.PI * 138; prog.style.strokeDasharray = C;
-    var subs = (S.subjects || []).filter(function (s) { return s.sections && s.sections.length; });
-    var dn = Math.floor((Date.now() + 19800000) / 864e5);
-    if (subs.length) { var s = subs[dn % subs.length]; focus.innerHTML = 'Today\'s focus: <b>' + esc(s.name) + '</b>'; focus.href = '#/subject/' + s.id; }
-    var last = -1, raf = 0, dead = false, reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function frame() {
-      if (dead) return;
-      var now = Date.now(), f = Math.max(0, Math.min(1, (now - t0) / (t1 - t0)));
-      prog.style.strokeDashoffset = C * (1 - f);
-      pct.textContent = (f * 100).toFixed(5) + '%';
-      var d = Math.floor((now - t0) / 864e5) + 1, total = Math.round((t1 - t0) / 864e5);
-      day.textContent = 'Day ' + Math.max(1, Math.min(d, total)) + ' of ' + total;
-      var step = Math.floor(now / 650) % 112, q = Math.min(step, 99);
-      if (step !== last) {
-        last = step;
-        bubbles.forEach(function (b, i) { b.classList.toggle('is-on', step < 100 ? i < step : step < 108); b.classList.toggle('is-now', i === step); });
-        qn.textContent = q + 1;
-        var b = bubbles[q]; pen.setAttribute('cx', b.getAttribute('cx')); pen.setAttribute('cy', b.getAttribute('cy'));
-        pen.style.opacity = step < 100 ? 1 : 0;
-      }
-      raf = reduce ? setTimeout(frame, 1000) : requestAnimationFrame(frame);
+    var cv = box.querySelector('[data-globe]'), tEl = box.querySelector('[data-em-time]'), sEl = box.querySelector('[data-em-sun]');
+    var timer = setInterval(clock, 1000); clock();
+    function clock() {
+      var d = new Date();
+      tEl.textContent = d.toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }) + ' IST';
+      var s = sunNow(d);
+      sEl.textContent = 'Sun overhead at ' + Math.abs(s[1]).toFixed(1) + '°' + (s[1] >= 0 ? 'N' : 'S') + ', ' + Math.abs(s[0]).toFixed(1) + '°' + (s[0] >= 0 ? 'E' : 'W');
     }
-    frame();
-    return { destroy: function () { dead = true; cancelAnimationFrame(raf); clearTimeout(raf); } };
+    var W = window.MAPS && MAPS.data['atlas-world'];
+    if (!W || !window.d3 || !window.topojson || !cv.getContext) return { destroy: function () { clearInterval(timer); } };
+    var land = topojson.merge(W.topo, W.topo.objects.countries.geometries);
+    var india = topojson.feature(W.topo, W.topo.objects.countries).features.filter(function (f) { return f.id === 'IND'; })[0];
+    var ctx = cv.getContext('2d'), dpr = Math.min(2, window.devicePixelRatio || 1), size = 0;
+    var proj = d3.geoOrthographic().clipAngle(90).precision(0.6), path = d3.geoPath(proj, ctx);
+    var grat = d3.geoGraticule10(), rot = [-60, -12], drag = null, raf = 0, last = 0, dead = false;
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function css(n) { return getComputedStyle(box).getPropertyValue(n).trim(); }
+    function resize() {
+      var s = cv.clientWidth; if (!s || s === size) return;
+      size = s; cv.width = s * dpr; cv.height = s * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      proj.translate([s / 2, s / 2]).scale(s / 2 - 1);
+    }
+    function draw() {
+      resize(); if (!size) return;
+      var c = { sea1: css('--em-sea1'), sea2: css('--em-sea2'), land: css('--em-land'), india: css('--em-india'), grat: css('--em-grat'), night: css('--em-night') };
+      proj.rotate(rot);
+      ctx.clearRect(0, 0, size, size);
+      var g = ctx.createRadialGradient(size * .38, size * .32, size * .05, size / 2, size / 2, size / 2);
+      g.addColorStop(0, c.sea1); g.addColorStop(1, c.sea2);
+      ctx.beginPath(); path({ type: 'Sphere' }); ctx.fillStyle = g; ctx.fill();
+      ctx.beginPath(); path(grat); ctx.strokeStyle = c.grat; ctx.lineWidth = .6; ctx.stroke();
+      ctx.beginPath(); path(land); ctx.fillStyle = c.land; ctx.fill();
+      if (india) { ctx.beginPath(); path(india); ctx.fillStyle = c.india; ctx.fill(); }
+      var s = sunNow(new Date()), anti = [s[0] + 180, -s[1]];
+      ctx.beginPath(); path(d3.geoCircle().center(anti).radius(90)()); ctx.fillStyle = c.night; ctx.fill();
+      ctx.beginPath(); path(d3.geoCircle().center(anti).radius(84)()); ctx.fill();
+      var sp = proj(s), back = d3.geoDistance(s, [-rot[0], -rot[1]]) > Math.PI / 2;
+      if (sp && !back) { var sg = ctx.createRadialGradient(sp[0], sp[1], 0, sp[0], sp[1], size * .16); sg.addColorStop(0, 'rgba(255,214,120,.55)'); sg.addColorStop(1, 'rgba(255,214,120,0)'); ctx.fillStyle = sg; ctx.beginPath(); ctx.arc(sp[0], sp[1], size * .16, 0, 7); ctx.fill(); }
+      var dp = proj([77.21, 28.61]);
+      if (dp && d3.geoDistance([77.21, 28.61], [-rot[0], -rot[1]]) < 1.5) {
+        var t = (performance.now() % 2400) / 2400;
+        ctx.beginPath(); ctx.arc(dp[0], dp[1], 3 + t * 14, 0, 7); ctx.strokeStyle = 'rgba(245,180,38,' + (1 - t) + ')'; ctx.lineWidth = 1.5; ctx.stroke();
+        ctx.beginPath(); ctx.arc(dp[0], dp[1], 3, 0, 7); ctx.fillStyle = '#fff'; ctx.fill();
+      }
+      var sh = ctx.createRadialGradient(size * .36, size * .3, size * .1, size / 2, size / 2, size / 2);
+      sh.addColorStop(0, 'rgba(255,255,255,.12)'); sh.addColorStop(.6, 'rgba(255,255,255,0)'); sh.addColorStop(1, 'rgba(0,0,0,.35)');
+      ctx.beginPath(); path({ type: 'Sphere' }); ctx.fillStyle = sh; ctx.fill();
+    }
+    function tick(now) {
+      if (dead) return;
+      var dt = last ? Math.min(64, now - last) : 16; last = now;
+      if (!drag && !reduce) rot[0] += dt * 0.006;
+      draw();
+      raf = requestAnimationFrame(tick);
+    }
+    cv.addEventListener('pointerdown', function (e) { drag = { x: e.clientX, y: e.clientY, r: rot.slice() }; cv.setPointerCapture(e.pointerId); });
+    cv.addEventListener('pointermove', function (e) { if (!drag) return; rot = [drag.r[0] + (e.clientX - drag.x) * .4, Math.max(-60, Math.min(60, drag.r[1] - (e.clientY - drag.y) * .4))]; if (reduce) draw(); });
+    function up() { drag = null; }
+    cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+    if (reduce) { draw(); window.addEventListener('resize', draw); } else raf = requestAnimationFrame(tick);
+    return { destroy: function () { dead = true; cancelAnimationFrame(raf); clearInterval(timer); window.removeEventListener('resize', draw); } };
   }
 
   function startCountdown(root) {
